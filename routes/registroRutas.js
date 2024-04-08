@@ -58,7 +58,7 @@ rutas.delete('/eliminar/:id', async (req, res) => {
 //lisar por id
 rutas.get('/producto/:id', async (req, res) => {
     try {
-        const producto = await ProductoModel.find({_id: req.params.id});
+        const producto = await ProductoModel.findOne({_id: req.params.id});
         res.json(producto);
     } catch (error) {
         res.status(404).json({mensaje: error.mensaje})
