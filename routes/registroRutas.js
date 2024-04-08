@@ -2,6 +2,7 @@ const express = require('express');
 const rutas = express.Router();
 const ProductoModel = require('../models/Products');
 
+// listar todos los registros
 rutas.get('/', async (req, res) => {
     try {
         const producto = await ProductoModel.find();
@@ -11,6 +12,7 @@ rutas.get('/', async (req, res) => {
     }
 });
 
+// Agregar registro
 rutas.post('/agregar', async (req, res) => {
     const newPerson = new ProductoModel({
         nombre: req.body.nombre,
@@ -31,6 +33,7 @@ rutas.post('/agregar', async (req, res) => {
     }
 });
 
+// Editar Registro
 rutas.put('/editar/:id', async (req, res) => {
     try {
         const actualizarProducto = await ProductoModel.findByIdAndUpdate(req.params.id, req.body, {new: true});
@@ -40,6 +43,7 @@ rutas.put('/editar/:id', async (req, res) => {
     }
 });
 
+// Eliminar registro
 rutas.delete('/eliminar/:id', async (req, res) => {
     console.log(req.params.id);
     try {
@@ -102,7 +106,7 @@ rutas.get('/ordenar', async (req, res) => {
     }
 });
 
-//listar productos que se compraron hoy
+//listar productos filtradas por campo codigo
 rutas.post('/listain', async (req, res) => {
     try {
         const producto = await ProductoModel.find({codigo: {$in: req.body }})
